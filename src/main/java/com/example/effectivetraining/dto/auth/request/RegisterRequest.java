@@ -1,4 +1,4 @@
-package com.example.effectivetraining.dto.auth;
+package com.example.effectivetraining.dto.auth.request;
 
 import com.example.effectivetraining.enums.Role;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequest {
 
-  private String firstname;
-  private String lastname;
   private String email;
   private String password;
   private Role role;
+
 }

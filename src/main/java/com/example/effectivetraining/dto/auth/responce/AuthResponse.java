@@ -1,4 +1,4 @@
-package com.example.effectivetraining.dto.auth;
+package com.example.effectivetraining.dto.auth.responce;
 
 import com.example.effectivetraining.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;

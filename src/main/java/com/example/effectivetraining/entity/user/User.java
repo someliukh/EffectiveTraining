@@ -1,13 +1,15 @@
-package com.example.effectivetraining.entity;
+package com.example.effectivetraining.entity.user;
 
+import com.example.effectivetraining.entity.gym.Day;
+import com.example.effectivetraining.entity.gym.Set;
 import com.example.effectivetraining.enums.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.scheduling.config.Task;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,20 +27,24 @@ public class User implements UserDetails {
   @Id
   @GeneratedValue
   private Integer id;
-  private String firstname;
-  private String lastname;
+  @Column(unique = true)
   private String email;
   private String password;
 
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
 
-//  @JsonManagedReference
-//  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//  private List<Task> tasks;
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user")
+  private List<Day> days;
+
+  @JsonManagedReference
+  @OneToOne(mappedBy = "user")
+  private Details details;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -74,4 +80,5 @@ public class User implements UserDetails {
   public boolean isEnabled() {
     return true;
   }
+
 }

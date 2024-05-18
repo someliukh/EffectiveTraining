@@ -1,24 +1,21 @@
 package com.example.effectivetraining.service.impl;
 
-import com.example.mschedule.entity.Task;
-import com.example.mschedule.entity.User;
-import com.example.mschedule.repository.UserRepository;
-import com.example.mschedule.service.UserService;
+import com.example.effectivetraining.entity.user.Details;
+import com.example.effectivetraining.entity.user.User;
+import com.example.effectivetraining.repository.ProfileRepository;
+import com.example.effectivetraining.repository.UserRepository;
+import com.example.effectivetraining.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-//    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
 
     @Override
     public List<User> getAllUser() {
@@ -32,27 +29,17 @@ public class UserServiceImpl implements UserService {
         return user.orElse(null);
     }
 
-    public Boolean getFreeStatus(User user) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss 'GMT'Z", Locale.ENGLISH);
-        List<Task> listOfTasks = user.getTasks();
-        Date currentTime = new Date();
-
-        for (Task task : listOfTasks) {
-            try {
-                Date taskStartTime = dateFormat.parse(task.getStartTime());
-                Date taskEndTime = dateFormat.parse(task.getEndTime());
-                if (currentTime.after(taskStartTime) && currentTime.before(taskEndTime)) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return true;
-
+    @Override
+    public Details updateUserDetails(Integer id, Details details) {
+        details.setUser(userRepository.findById(id).get());
+        Details oldDetails = profileRepository.findByUId(id);
+        if (oldDetails != null) {
+            details.setId(oldDetails.getId());
+            oldDetails = details;
+            details = profileRepository.save(oldDetails);
+        } else
+            details = profileRepository.save(details);
+        return details;
     }
-
 
 }

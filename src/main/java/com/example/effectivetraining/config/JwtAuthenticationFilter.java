@@ -1,5 +1,6 @@
 package com.example.effectivetraining.config;
 
+import com.example.effectivetraining.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

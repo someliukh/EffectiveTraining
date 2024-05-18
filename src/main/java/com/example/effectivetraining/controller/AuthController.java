@@ -1,8 +1,8 @@
 package com.example.effectivetraining.controller;
 
-import com.example.effectivetraining.dto.auth.AuthRequest;
-import com.example.effectivetraining.dto.auth.AuthResponse;
-import com.example.effectivetraining.dto.auth.RegisterRequest;
+import com.example.effectivetraining.dto.auth.request.AuthRequest;
+import com.example.effectivetraining.dto.auth.responce.AuthResponse;
+import com.example.effectivetraining.dto.auth.request.RegisterRequest;
 import com.example.effectivetraining.service.impl.AuthServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,6 +40,5 @@ public class AuthController {
   ) throws IOException {
     service.refreshToken(request, response);
   }
-
 
 }

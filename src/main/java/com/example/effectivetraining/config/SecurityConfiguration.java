@@ -36,8 +36,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-//                                .requestMatchers(GET, "/api/v1/staff").hasAnyRole(ADMIN.name())
-//                                .requestMatchers(POST, "/api/v1/staff/{id}/create-task").hasAnyRole(ADMIN.name())
+                                .requestMatchers(GET, "/api/v1/profile/{id}/*").authenticated()
+                                .requestMatchers(POST, "/api/v1/profile/{id}/*").authenticated()
+                                .requestMatchers(GET, "/api/v1/train/{id}/*").authenticated()
+                                .requestMatchers(POST, "/api/v1/train/{id}/*").authenticated()
+                                .requestMatchers(GET, "api/v1/train").hasRole(MEMBER.name())
+
 //                                .requestMatchers(GET, "/api/v1/staff/{id}").hasAnyRole(ADMIN.name(), MEMBER.name())
                                 .anyRequest()
                                 .authenticated()

@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
+public class SetDTO {
 
-  private String email;
-  String password;
+    private Integer setNum;
+    private Float setWeight;
+
 }

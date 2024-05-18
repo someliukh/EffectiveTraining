@@ -1,6 +1,6 @@
 package com.example.effectivetraining.repository;
 
-import com.example.effectivetraining.entity.User;
+import com.example.effectivetraining.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

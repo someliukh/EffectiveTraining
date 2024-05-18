@@ -1,13 +1,12 @@
-package com.example.effectivetraining.entity;
+package com.example.effectivetraining.entity.user;
 
 import com.example.effectivetraining.enums.TokenType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +27,7 @@ public class Token {
 
   public boolean expired;
 
+  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "users_id")
   public User user;

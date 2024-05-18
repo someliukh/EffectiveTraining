@@ -1,11 +1,11 @@
 package com.example.effectivetraining.service.impl;
 
 import com.example.effectivetraining.config.JwtService;
-import com.example.effectivetraining.dto.auth.AuthRequest;
-import com.example.effectivetraining.dto.auth.AuthResponse;
-import com.example.effectivetraining.dto.auth.RegisterRequest;
-import com.example.effectivetraining.entity.Token;
-import com.example.effectivetraining.entity.User;
+import com.example.effectivetraining.dto.auth.request.AuthRequest;
+import com.example.effectivetraining.dto.auth.responce.AuthResponse;
+import com.example.effectivetraining.dto.auth.request.RegisterRequest;
+import com.example.effectivetraining.entity.user.Token;
+import com.example.effectivetraining.entity.user.User;
 import com.example.effectivetraining.enums.Role;
 import com.example.effectivetraining.enums.TokenType;
 import com.example.effectivetraining.repository.TokenRepository;
@@ -18,10 +18,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,21 +33,16 @@ public class AuthServiceImpl implements AuthService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
-
-//  private final EmailService emailService;
+  private final UserRepository userRepository;
 
   @Override
   public AuthResponse register(RegisterRequest request) {
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(Role.MEMBER)
         .build();
     var savedUser = repository.save(user);
-
-//    emailService.sendMessageWithPassword(user, password);
 
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
@@ -128,4 +125,11 @@ public class AuthServiceImpl implements AuthService {
       }
     }
   }
+
+  public boolean hasId(Integer id){
+    String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<User> user = userRepository.findByEmail(username);
+    return user.orElseThrow().getId().equals(id);
+  }
+
 }
