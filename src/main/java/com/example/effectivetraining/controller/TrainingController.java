@@ -103,6 +103,7 @@ public class TrainingController {
         }
 
         filteredGroups.forEach(group -> group.getYoutube().forEach(youtube -> youtube.setGroup(null)));
+        filteredGroups.forEach(group -> group.getExercises().forEach(exercise -> exercise.setSets(null)));
         groupVideoAssociations.forEach(group -> group.getCommonVideo().setGroup(null));
         groupVideoAssociations.forEach(groups -> groups.getGroups().forEach(group -> group.setYoutube(null)));
 
