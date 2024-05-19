@@ -10,7 +10,6 @@ import com.example.effectivetraining.mapper.TrainToEntityMapper;
 import com.example.effectivetraining.repository.DayRepository;
 import com.example.effectivetraining.repository.GroupRepository;
 import com.example.effectivetraining.repository.ProfileRepository;
-import com.example.effectivetraining.service.UserService;
 import com.example.effectivetraining.util.GroupVideoAssociation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +25,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/train")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
 public class TrainingController {
 
     private final ProfileRepository profileRepository;
-    private final UserService userService;
     private final DayRepository dayRepository;
     private final TrainToEntityMapper mapper;
     private final GroupRepository groupRepository;
