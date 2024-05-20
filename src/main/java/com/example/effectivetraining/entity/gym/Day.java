@@ -24,7 +24,7 @@ public class Day {
     private Long id;
 
     private String title;
-    @Column(unique = true)
+//    @Column(unique = true)
     private LocalDate date;
     private Integer timeForTraining;
 

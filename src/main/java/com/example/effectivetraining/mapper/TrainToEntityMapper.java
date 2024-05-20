@@ -57,7 +57,7 @@ public class TrainToEntityMapper {
         newDay.setSets(newSet2);
         dayRepository.save(newDay);
 
-        return dayRepository.findByDate(request.getDate());
+        return dayRepository.findByDate(request.getDate(), id);
     }
 
 }
