@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthResponse {
 
-  private Long id;
+  private Integer id;
   private Role role;
 
   @JsonProperty("access_token")

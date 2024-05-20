@@ -48,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
     var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthResponse.builder()
+            .id(savedUser.getId())
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
         .build();
@@ -68,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthResponse.builder()
-            .id(Long.valueOf(user.getId()))
+            .id(user.getId())
             .role(user.getRole())
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
